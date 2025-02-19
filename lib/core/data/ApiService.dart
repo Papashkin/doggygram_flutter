@@ -4,7 +4,9 @@ import 'model/AllBreedsApiModel.dart';
 
 part 'ApiService.g.dart';
 
-@RestApi(baseUrl: 'https://images.dog.ceo')
+const String BASE_URL = 'https://dog.ceo/api';
+
+@RestApi(baseUrl: BASE_URL)
 abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 

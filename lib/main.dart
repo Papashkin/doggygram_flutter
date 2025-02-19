@@ -1,4 +1,6 @@
+import 'package:flashcards_flutter/core/ui/core/RoutePaths.dart';
 import 'package:flashcards_flutter/core/ui/di/locator.dart';
+import 'package:flashcards_flutter/core/ui/core/Router.dart' as router;
 import 'package:flashcards_flutter/core/ui/home/widget/HomeView.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +20,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
       ),
       home: const HomeView(),
+      initialRoute: RoutePaths.Home,
+      onGenerateRoute: router.Router.generateRoute,
     );
   }
 }

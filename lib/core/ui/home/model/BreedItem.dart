@@ -7,4 +7,6 @@ class BreedItem {
   String get breed => _breed;
 
   List<String> get subBreed => _subBreed;
+
+  String get subBreeds => _subBreed.join(', ');
 }
