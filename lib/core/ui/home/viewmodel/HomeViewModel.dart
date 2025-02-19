@@ -1,15 +1,37 @@
+import 'package:flashcards_flutter/core/ui/home/HomeViewUiState.dart';
 import 'package:flutter/material.dart';
+
 import '../../../data/repository/DataRepository.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final DataRepository repository;
 
-  HomeViewModel(this.repository) : _title = "Home", _description = "This is the home page";
+  HomeViewModel(this.repository);
 
-  final String _title;
-  final String _description;
+  HomeViewUiState _state = HomeViewUiState(true, List.empty());
 
-  String get title => _title;
-  String get description => _description;
+  HomeViewUiState get state => _state;
 
+  init() {
+    getBreeds();
+  }
+
+  Future<void> getBreeds() async {
+    _state.isLoading = true;
+    notifyListeners();
+
+    try {
+      final response = await repository.getBreeds();
+      if (response.isSuccessful()) {
+        _state.breedList = response.mapToBreedItems();
+      } else {
+        _state.breedList = List.empty();
+      }
+    } catch(e) {
+      print("❌ Error occurred: $e");
+    } finally {
+      _state.isLoading = false;
+      notifyListeners();
+    }
+  }
 }
