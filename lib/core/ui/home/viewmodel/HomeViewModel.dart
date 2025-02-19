@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../../data/repository/DataRepository.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  HomeViewModel() : _title = "Home", _description = "This is the home page";
+  final DataRepository repository;
+
+  HomeViewModel(this.repository) : _title = "Home", _description = "This is the home page";
 
   final String _title;
   final String _description;
