@@ -4,14 +4,14 @@ import '../../../../core/di/locator.dart';
 import '../viewmodel/HomeViewModel.dart';
 import 'HomeViewContent.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<HomeView> createState() => HomeViewState();
+  State<HomeScreen> createState() => HomeScreenState();
 }
 
-class HomeViewState extends State<HomeView> {
+class HomeScreenState extends State<HomeScreen> {
   final HomeViewModel viewModel = getIt.get<HomeViewModel>();
 
   @override

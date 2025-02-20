@@ -1,4 +1,5 @@
 import 'package:flashcards_flutter/core/presentation/BaseViewModel.dart';
+import 'package:flashcards_flutter/data/model/AllBreedsApiModel.dart';
 import '../../../../data/repository/DataRepository.dart';
 import '../HomeViewUiState.dart';
 
@@ -7,28 +8,37 @@ class HomeViewModel extends BaseViewModel {
 
   HomeViewModel(this.repository);
 
-  final HomeViewUiState _state = HomeViewUiState(true, List.empty());
+  static HomeViewUiState _state = Loading();
 
   HomeViewUiState get state => _state;
 
-  init() {
+  void init() {
     getBreeds();
   }
 
   Future<void> getBreeds() async {
-    updateStateWithNotification(action: () => {_state.isLoading = true});
+    updateStateWithNotification(action: () => {_state = Loading()});
 
     try {
-      final response = await repository.getBreeds();
+      final response = await repository.getAllBreeds();
       if (response.isSuccessful()) {
-        _state.breedList = response.mapToBreedItems();
+        onGetAllBreedsSuccessResult(response);
       } else {
-        _state.breedList = List.empty();
+        onGetAllBreedsErrorResult(response.message.toString());
       }
     } catch (e) {
-      print("❌ Error occurred: $e");
+      onGetAllBreedsErrorResult(e.toString());
     } finally {
-      updateStateWithNotification(action: () => {_state.isLoading = false});
+      notifyListeners();
     }
+  }
+
+  void onGetAllBreedsSuccessResult(AllBreedsApiModel data) {
+    final allBreedItems = data.mapToBreedItems();
+    _state = Content(allBreedItems);
+  }
+
+  void onGetAllBreedsErrorResult(String? error) {
+    _state = Error(error ?? 'Failed to load breed images');
   }
 }

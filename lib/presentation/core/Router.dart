@@ -1,5 +1,5 @@
+import 'package:flashcards_flutter/presentation/features/home/widget/HomeScreen.dart';
 import 'package:flutter/material.dart';
-import '../features/home/widget/HomeView.dart';
 import 'RoutePaths.dart';
 
 class Router {
@@ -7,7 +7,7 @@ class Router {
     final path = settings.name;
     switch (path) {
       case RoutePaths.Home:
-        return MaterialPageRoute(builder: (_) => HomeView());
+        return MaterialPageRoute(builder: (_) => HomeScreen());
       default:
         return MaterialPageRoute(
           builder:
