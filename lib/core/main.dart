@@ -1,8 +1,8 @@
-import 'package:flashcards_flutter/core/ui/core/RoutePaths.dart';
-import 'package:flashcards_flutter/core/ui/di/locator.dart';
-import 'package:flashcards_flutter/core/ui/core/Router.dart' as router;
-import 'package:flashcards_flutter/core/ui/home/widget/HomeView.dart';
+import 'package:flashcards_flutter/presentation/core/Router.dart' as router;
 import 'package:flutter/material.dart';
+import '../presentation/core/RoutePaths.dart';
+import '../presentation/features/home/widget/HomeView.dart';
+import 'di/locator.dart';
 
 void main() {
   setup();

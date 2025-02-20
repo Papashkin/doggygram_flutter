@@ -1,6 +1,6 @@
-import 'package:flashcards_flutter/core/ui/core/RoutePaths.dart';
-import 'package:flashcards_flutter/core/ui/home/widget/HomeView.dart';
 import 'package:flutter/material.dart';
+import '../features/home/widget/HomeView.dart';
+import 'RoutePaths.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {

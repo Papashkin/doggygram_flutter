@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:flashcards_flutter/core/ui/home/viewmodel/HomeViewModel.dart';
 import 'package:get_it/get_it.dart';
-
 import '../../data/ApiService.dart';
 import '../../data/repository/DataRepository.dart';
 import '../../data/repository/DataRepositoryImpl.dart';
+import '../../presentation/features/home/viewmodel/HomeViewModel.dart';
 
 final GetIt getIt = GetIt.instance;
 

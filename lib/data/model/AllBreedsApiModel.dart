@@ -1,5 +1,5 @@
-import 'package:flashcards_flutter/core/ui/home/model/BreedItem.dart';
 import 'package:json_annotation/json_annotation.dart';
+import '../../presentation/features/home/model/BreedItem.dart';
 
 part 'AllBreedsApiModel.g.dart';
 
