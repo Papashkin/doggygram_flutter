@@ -1,7 +1,6 @@
-import 'package:flashcards_flutter/presentation/core/Router.dart' as router;
+import 'package:flashcards_flutter/presentation/core/Router.dart';
 import 'package:flutter/material.dart';
-import 'presentation/core/RoutePaths.dart';
-import 'presentation/features/home/widget/HomeScreen.dart';
+
 import 'core/di/locator.dart';
 
 void main() {
@@ -14,14 +13,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'DoggyGram',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
       ),
-      home: const HomeScreen(),
-      initialRoute: RoutePaths.Home,
-      onGenerateRoute: router.Router.generateRoute,
+      routerConfig: mainRouter,
     );
   }
 }

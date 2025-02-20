@@ -19,6 +19,4 @@ class DataRepositoryImpl implements DataRepository {
   Future<BreedImageApiModel> getImagesByBreed(String breedName) {
     return service.getImagesByBreed(breedName);
   }
-
-
 }

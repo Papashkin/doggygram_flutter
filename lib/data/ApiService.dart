@@ -15,11 +15,12 @@ abstract class ApiService {
   Future<AllBreedsApiModel> getAllBreeds();
 
   @GET("/breed/{breedName}/images/random/20")
-  Future<BreedImageApiModel> getImagesByBreed(String breedName);
+  Future<BreedImageApiModel> getImagesByBreed(
+    @Path() String breedName,
+  );
 }
 
 class ParseErrorLogger {
-
   void logError(Object error, StackTrace stackTrace, RequestOptions options) {
     print("❌ Error occurred: $error");
     print("📌 StackTrace: $stackTrace");

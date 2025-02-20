@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../BreedImagesUiState.dart';
+import 'BreedImagesListView.dart';
 
 class BreedImagesScreenContent extends StatefulWidget {
   final BreedImagesUiState state;
@@ -15,13 +16,14 @@ class BreedImagesScreenContentState extends State<BreedImagesScreenContent> {
   @override
   Widget build(BuildContext context) {
     switch (widget.state.runtimeType) {
-      case Loading _:
+      case Loading:
         return Center(child: CircularProgressIndicator());
-      case Content _:
-        return Center(
-          child: Text("Images of selected breed\nwill be displayed here"),
+      case Content:
+        return BreedImagesListView(
+          context,
+          (widget.state as Content).breedImages,
         );
-      case Error _:
+      case Error:
         return Center(
           child: Text("Error occurred: ${(widget.state as Error).message}"),
         );

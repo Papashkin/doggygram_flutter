@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../model/BreedItem.dart';
-import 'HomeScreen.dart';
 
 Widget BreedsListView(BuildContext context, List<BreedItem> data) {
   return ListView.builder(
@@ -13,8 +13,8 @@ Widget BreedsListView(BuildContext context, List<BreedItem> data) {
         contentPadding: EdgeInsets.fromLTRB(8, 0, 8, 0),
         tileColor: (index % 2 == 0) ? Colors.white : Colors.grey[50],
         title: Text(item.breed),
-        trailing: Icon(Icons.arrow_forward_ios_rounded, size: 16),
-        leading: Icon(Icons.pets_rounded, size: 32),
+        trailing: Icon(Icons.arrow_forward_ios_rounded, size: 12),
+        leading: Icon(Icons.pets_rounded, size: 24),
         subtitle:
             item.subBreed.isEmpty
                 ? null
@@ -23,11 +23,7 @@ Widget BreedsListView(BuildContext context, List<BreedItem> data) {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-        onTap:
-            () => {
-              //TODO fix navigation to breeds images next time
-              showSnackbar(context, 'you clicked on ${item.breed}'),
-            },
+        onTap: () => {context.go('/breedImages/${item.breed}')},
       );
     },
   );

@@ -22,8 +22,8 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => viewModel,
+    return ChangeNotifierProvider<HomeViewModel>.value(
+      value: viewModel,
       child: Consumer<HomeViewModel>(
         builder: (context, userViewModel, child) {
           return Scaffold(
