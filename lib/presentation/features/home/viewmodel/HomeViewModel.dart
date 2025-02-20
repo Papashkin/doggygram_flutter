@@ -1,14 +1,13 @@
-import 'package:flashcards_flutter/core/ui/home/HomeViewUiState.dart';
-import 'package:flutter/material.dart';
+import 'package:flashcards_flutter/core/presentation/BaseViewModel.dart';
+import '../../../../data/repository/DataRepository.dart';
+import '../HomeViewUiState.dart';
 
-import '../../../data/repository/DataRepository.dart';
-
-class HomeViewModel extends ChangeNotifier {
+class HomeViewModel extends BaseViewModel {
   final DataRepository repository;
 
   HomeViewModel(this.repository);
 
-  HomeViewUiState _state = HomeViewUiState(true, List.empty());
+  final HomeViewUiState _state = HomeViewUiState(true, List.empty());
 
   HomeViewUiState get state => _state;
 
@@ -17,8 +16,7 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<void> getBreeds() async {
-    _state.isLoading = true;
-    notifyListeners();
+    updateStateWithNotification(action: () => {_state.isLoading = true});
 
     try {
       final response = await repository.getBreeds();
@@ -27,11 +25,10 @@ class HomeViewModel extends ChangeNotifier {
       } else {
         _state.breedList = List.empty();
       }
-    } catch(e) {
+    } catch (e) {
       print("❌ Error occurred: $e");
     } finally {
-      _state.isLoading = false;
-      notifyListeners();
+      updateStateWithNotification(action: () => {_state.isLoading = false});
     }
   }
 }
