@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import '../BreedImagesUiState.dart';
+import '../model/BreedImageItem.dart';
 import 'BreedImagesListView.dart';
 
 class BreedImagesScreenContent extends StatefulWidget {
   final BreedImagesUiState state;
+  final Function(BreedImageItem) onFavouriteIconTap;
 
-  const BreedImagesScreenContent(this.state, {super.key});
+  const BreedImagesScreenContent(this.state, this.onFavouriteIconTap, {super.key});
 
   @override
   State<BreedImagesScreenContent> createState() =>
@@ -22,6 +24,9 @@ class BreedImagesScreenContentState extends State<BreedImagesScreenContent> {
         return BreedImagesListView(
           context,
           (widget.state as Content).breedImages,
+          (item) => {
+            widget.onFavouriteIconTap(item),
+          }
         );
       case Error:
         return Center(

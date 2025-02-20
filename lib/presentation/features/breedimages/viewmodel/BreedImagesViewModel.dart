@@ -1,8 +1,8 @@
 import 'package:flashcards_flutter/core/presentation/BaseViewModel.dart';
-import 'package:flashcards_flutter/presentation/features/breedimages/model/BreedImageModel.dart';
 
 import '../../../../data/repository/DataRepository.dart';
 import '../BreedImagesUiState.dart';
+import '../model/BreedImageItem.dart';
 
 class BreedImagesViewModel extends BaseViewModel {
   final DataRepository repository;
@@ -35,9 +35,17 @@ class BreedImagesViewModel extends BaseViewModel {
     }
   }
 
+  void onFavouriteIconTap(BreedImageItem item) {
+    final breedImageItems = (_state as Content).breedImages;
+    final index = breedImageItems.indexOf(item);
+    breedImageItems[index] = BreedImageItem(imageUrl: item.imageUrl, isFavourite: !item.isFavourite);
+    _state = Content(breedImageItems);
+    notifyListeners();
+  }
+
   void onGetBreedImagesSuccessResult(List<String> data) {
     final breedImageItems =
-        data.map((item) => BreedImageModel(imageUrl: item)).toList();
+        data.map((item) => BreedImageItem(imageUrl: item, isFavourite: false)).toList();
     _state = Content(breedImageItems);
   }
 

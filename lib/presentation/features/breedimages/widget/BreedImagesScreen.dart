@@ -31,7 +31,9 @@ class HomeViewState extends State<BreedImagesScreen> {
         builder: (context, userViewModel, child) {
           return Scaffold(
             appBar: AppBar(title: Center(child: Text("Images of ${widget.breedName}"))),
-            body: BreedImagesScreenContent(viewModel.state),
+            body: BreedImagesScreenContent(viewModel.state, (item) => {
+              viewModel.onFavouriteIconTap(item),
+            }),
           );
         },
       ),
