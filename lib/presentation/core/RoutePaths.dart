@@ -1,4 +1,4 @@
 class RoutePaths {
-  static const String Home = '/home';
-  static const String BreedImages = '/breedImages';
+  static const String Home = '/';
+  static const String BreedImages = 'breedImages/:breedName';
 }

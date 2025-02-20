@@ -6,7 +6,9 @@ import '../viewmodel/BreedImagesViewModel.dart';
 import 'BreedImagesScreenContent.dart';
 
 class BreedImagesScreen extends StatefulWidget {
-  const BreedImagesScreen({super.key});
+  final String? breedName;
+
+  const BreedImagesScreen(this.breedName, {super.key});
 
   @override
   State<BreedImagesScreen> createState() => HomeViewState();
@@ -18,17 +20,17 @@ class HomeViewState extends State<BreedImagesScreen> {
   @override
   void initState() {
     super.initState();
-    viewModel.init("hound"); //TODO replace hardcoded name with one from navigation
+    viewModel.init(widget.breedName);
   }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => viewModel,
+    return ChangeNotifierProvider<BreedImagesViewModel>.value(
+      value: viewModel,
       child: Consumer<BreedImagesViewModel>(
         builder: (context, userViewModel, child) {
           return Scaffold(
-            appBar: AppBar(title: Center(child: Text("List of breeds"))),
+            appBar: AppBar(title: Center(child: Text("Images of ${widget.breedName}"))),
             body: BreedImagesScreenContent(viewModel.state),
           );
         },

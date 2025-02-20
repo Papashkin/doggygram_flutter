@@ -13,16 +13,14 @@ class BreedImagesViewModel extends BaseViewModel {
 
   BreedImagesUiState get state => _state;
 
-  void init(String breedName) {
-    //TODO add API call to get 20 images for selected breed.
-    // need a breed name as an input parameter
-    getBreedImages(breedName);
+  void init(String? breedName) {
+    if (breedName != null) {
+      getBreedImages(breedName);
+    }
   }
 
   Future<void> getBreedImages(String breedName) async {
-    updateStateWithNotification(action:() => {
-      _state = Loading()
-    });
+    updateStateWithNotification(action: () => {_state = Loading()});
     try {
       var response = await repository.getImagesByBreed(breedName);
       if (response.isSuccessful()) {
@@ -30,18 +28,16 @@ class BreedImagesViewModel extends BaseViewModel {
       } else {
         onGetBreedImagesErrorResult(response.message.first);
       }
-    } catch(e) {
-        onGetBreedImagesErrorResult(e.toString());
+    } catch (e) {
+      onGetBreedImagesErrorResult(e.toString());
     } finally {
       notifyListeners();
     }
-
   }
 
   void onGetBreedImagesSuccessResult(List<String> data) {
-    final breedImageItems = data
-        .map((item) => BreedImageModel(imageUrl: item))
-        .toList();
+    final breedImageItems =
+        data.map((item) => BreedImageModel(imageUrl: item)).toList();
     _state = Content(breedImageItems);
   }
 
