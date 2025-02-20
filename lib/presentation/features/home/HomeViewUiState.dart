@@ -1,13 +1,17 @@
 import 'model/BreedItem.dart';
 
-class HomeViewUiState {
-  bool _isLoading = true;
-  List<BreedItem> _breedList = [];
+sealed class HomeViewUiState {}
 
-  HomeViewUiState(this._isLoading, this._breedList);
+class Loading extends HomeViewUiState {}
 
-  bool get isLoading => _isLoading;
-  List<BreedItem> get breedList => _breedList;
-  set isLoading(bool isLoading) => _isLoading = isLoading;
-  set breedList(List<BreedItem> breedList) => _breedList = breedList;
+class Content extends HomeViewUiState {
+  final List<BreedItem> breedList;
+
+  Content(this.breedList);
+}
+
+class Error extends HomeViewUiState {
+  final String message;
+
+  Error(this.message);
 }

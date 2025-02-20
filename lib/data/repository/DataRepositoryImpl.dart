@@ -1,4 +1,6 @@
 
+import 'package:flashcards_flutter/data/model/BreedImageApiModel.dart';
+
 import '../ApiService.dart';
 import '../model/AllBreedsApiModel.dart';
 import 'DataRepository.dart';
@@ -9,7 +11,14 @@ class DataRepositoryImpl implements DataRepository {
   DataRepositoryImpl(this.service);
 
   @override
-  Future<AllBreedsApiModel> getBreeds() async {
+  Future<AllBreedsApiModel> getAllBreeds() async {
     return service.getAllBreeds();
   }
+
+  @override
+  Future<BreedImageApiModel> getImagesByBreed(String breedName) {
+    return service.getImagesByBreed(breedName);
+  }
+
+
 }

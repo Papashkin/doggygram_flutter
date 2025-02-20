@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flashcards_flutter/data/model/BreedImageApiModel.dart';
 import 'package:retrofit/http.dart';
 import 'model/AllBreedsApiModel.dart';
 
@@ -12,6 +13,9 @@ abstract class ApiService {
 
   @GET("/breeds/list/all")
   Future<AllBreedsApiModel> getAllBreeds();
+
+  @GET("/breed/{breedName}/images/random/20")
+  Future<BreedImageApiModel> getImagesByBreed(String breedName);
 }
 
 class ParseErrorLogger {
