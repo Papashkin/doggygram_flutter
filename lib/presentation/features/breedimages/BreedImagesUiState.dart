@@ -1,11 +1,13 @@
-import 'package:flashcards_flutter/presentation/features/breedimages/model/BreedImageModel.dart';
+import 'package:flashcards_flutter/presentation/features/breedimages/model/BreedImageItem.dart';
+
+import 'model/BreedImageItem.dart';
 
 sealed class BreedImagesUiState {}
 
 class Loading extends BreedImagesUiState {}
 
 class Content extends BreedImagesUiState {
-  final List<BreedImageModel> breedImages;
+  final List<BreedImageItem> breedImages;
 
   Content(this.breedImages);
 }
