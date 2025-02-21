@@ -23,7 +23,7 @@ Widget BreedsListView(BuildContext context, List<BreedItem> data) {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-        onTap: () => {context.go('/breedImages/${item.breed}')},
+        onTap: () => {context.go('/home/breedImages/${item.breed}')},
       );
     },
   );
