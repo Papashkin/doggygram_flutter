@@ -15,9 +15,7 @@ abstract class ApiService {
   Future<AllBreedsApiModel> getAllBreeds();
 
   @GET("/breed/{breedName}/images/random/20")
-  Future<BreedImageApiModel> getImagesByBreed(
-    @Path() String breedName,
-  );
+  Future<BreedImageApiModel> getImagesByBreed(@Path() String breedName);
 }
 
 class ParseErrorLogger {
