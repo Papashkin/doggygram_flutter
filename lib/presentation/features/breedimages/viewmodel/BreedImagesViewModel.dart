@@ -10,10 +10,12 @@ class BreedImagesViewModel extends BaseViewModel {
   BreedImagesViewModel(this.repository);
 
   static BreedImagesUiState _state = Loading();
+  static List<String> _favourites = [];
 
   BreedImagesUiState get state => _state;
 
   void init(String? breedName) {
+    getFavourites();
     if (breedName != null) {
       getBreedImages(breedName);
     }
@@ -38,18 +40,41 @@ class BreedImagesViewModel extends BaseViewModel {
   void onFavouriteIconTap(BreedImageItem item) {
     final breedImageItems = (_state as Content).breedImages;
     final index = breedImageItems.indexOf(item);
-    breedImageItems[index] = BreedImageItem(imageUrl: item.imageUrl, isFavourite: !item.isFavourite);
+    breedImageItems[index] = BreedImageItem(
+      imageUrl: item.imageUrl,
+      isFavourite: !item.isFavourite,
+    );
+    updateFavourites(breedImageItems[index]);
     _state = Content(breedImageItems);
     notifyListeners();
   }
 
   void onGetBreedImagesSuccessResult(List<String> data) {
     final breedImageItems =
-        data.map((item) => BreedImageItem(imageUrl: item, isFavourite: false)).toList();
+        data
+            .map(
+              (item) => BreedImageItem(
+                imageUrl: item,
+                isFavourite: _favourites.contains(item),
+              ),
+            )
+            .toList();
     _state = Content(breedImageItems);
   }
 
   void onGetBreedImagesErrorResult(String? error) {
     _state = Error(error ?? 'Failed to load breed images');
+  }
+
+  void updateFavourites(BreedImageItem item) {
+    if (item.isFavourite) {
+      repository.addToFavourite(item.imageUrl);
+    } else {
+      repository.removeFromFavourite(item.imageUrl);
+    }
+  }
+
+  Future<void> getFavourites() async {
+    _favourites = await repository.getAllFavourites();
   }
 }

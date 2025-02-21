@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flashcards_flutter/data/model/BreedImageApiModel.dart';
 import 'package:retrofit/http.dart';
-import 'model/AllBreedsApiModel.dart';
+import '../model/AllBreedsApiModel.dart';
 
 part 'ApiService.g.dart';
 

@@ -1,22 +1,39 @@
 
 import 'package:flashcards_flutter/data/model/BreedImageApiModel.dart';
+import 'package:flashcards_flutter/data/service/FavoritesService.dart';
 
-import '../ApiService.dart';
+import '../service/ApiService.dart';
 import '../model/AllBreedsApiModel.dart';
 import 'DataRepository.dart';
 
 class DataRepositoryImpl implements DataRepository {
-  final ApiService service;
+  final ApiService apiService;
+  final FavoritesService favoriteService;
 
-  DataRepositoryImpl(this.service);
+  DataRepositoryImpl(this.apiService, this.favoriteService);
 
   @override
   Future<AllBreedsApiModel> getAllBreeds() async {
-    return service.getAllBreeds();
+    return await apiService.getAllBreeds();
   }
 
   @override
-  Future<BreedImageApiModel> getImagesByBreed(String breedName) {
-    return service.getImagesByBreed(breedName);
+  Future<BreedImageApiModel> getImagesByBreed(String breedName) async {
+    return await apiService.getImagesByBreed(breedName);
+  }
+
+  @override
+  Future<void> addToFavourite(String image) async {
+    return await favoriteService.addFavourite(image);
+  }
+
+  @override
+  Future<void> removeFromFavourite(String image) async {
+    return await favoriteService.removeFavourite(image);
+  }
+
+  @override
+  Future<List<String>> getAllFavourites() async {
+    return await favoriteService.getFavourites();
   }
 }
