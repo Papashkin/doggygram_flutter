@@ -13,7 +13,11 @@ class HomeViewModel extends BaseViewModel {
   HomeViewUiState get state => _state;
 
   void init() {
-    getBreeds();
+    if (_state is Content) {
+      return;
+    } else {
+      getBreeds();
+    }
   }
 
   Future<void> getBreeds() async {
