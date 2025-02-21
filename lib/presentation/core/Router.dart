@@ -4,7 +4,8 @@ import 'package:flashcards_flutter/presentation/features/home/widget/HomeScreen.
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../core/presentation/BottomNavigationView.dart';
+import '../features/about/widget/AboutScreen.dart';
+import 'BottomNavigationView.dart';
 import 'RoutePaths.dart';
 
 final mainRouter = GoRouter(
@@ -30,6 +31,10 @@ final mainRouter = GoRouter(
         GoRoute(
           path: RoutePaths.Favourites,
           builder: (context, state) => FavouritesScreen(),
+        ),
+        GoRoute(
+          path: RoutePaths.About,
+          builder: (context, state) => AboutScreen(),
         ),
       ],
     ),

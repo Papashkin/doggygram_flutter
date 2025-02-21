@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../presentation/core/RoutePaths.dart';
+import 'RoutePaths.dart';
 
 class BottomNavigationView extends StatelessWidget {
   final Widget child;
 
-  const BottomNavigationView({required this.child});
+  const BottomNavigationView({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +29,10 @@ class BottomNavigationView extends StatelessWidget {
                     icon: Icon(Icons.favorite),
                     label: 'Favourites',
                   ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.info_outline),
+                    label: 'About',
+                  ),
                 ],
               )
               : null,
@@ -37,7 +41,7 @@ class BottomNavigationView extends StatelessWidget {
 
   bool _isBottomNavBarVisible(BuildContext context) {
     final location = GoRouterState.of(context).uri.toString();
-    return location == RoutePaths.Home || location == RoutePaths.Favourites;
+    return allFromBottomNav.contains(location);
   }
 
   int _getSelectedIndex(BuildContext context) {
@@ -47,6 +51,8 @@ class BottomNavigationView extends StatelessWidget {
         return 0;
       case RoutePaths.Favourites:
         return 1;
+      case RoutePaths.About:
+        return 2;
       default:
         return 0;
     }
@@ -58,8 +64,16 @@ class BottomNavigationView extends StatelessWidget {
         return RoutePaths.Home;
       case 1:
         return RoutePaths.Favourites;
+      case 2:
+        return RoutePaths.About;
       default:
         return RoutePaths.Home;
     }
   }
+
+  List<String> get allFromBottomNav => [
+    RoutePaths.Home,
+    RoutePaths.Favourites,
+    RoutePaths.About,
+  ];
 }
