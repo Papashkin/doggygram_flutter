@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flashcards_flutter/presentation/features/breedimages/viewmodel/BreedImagesViewModel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -18,15 +17,7 @@ void setup() {
   setupHive();
 
   getIt.registerLazySingleton<Dio>(() {
-    final options = CacheOptions(
-      policy: CachePolicy.forceCache,
-      maxStale: Duration(days: 1),
-      store: MemCacheStore(),
-      hitCacheOnErrorExcept: [],
-      priority: CachePriority.high,
-    );
     final Dio dio = Dio();
-    dio.interceptors.add(DioCacheInterceptor(options: options));
     dio.interceptors.add(
       LogInterceptor(
         request: kDebugMode,
