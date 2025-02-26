@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/adapters.dart';
 
+import '../../data/SessionStorage.dart';
 import '../../data/repository/DataRepository.dart';
 import '../../data/repository/DataRepositoryImpl.dart';
 import '../../data/service/ApiService.dart';
@@ -36,8 +37,14 @@ void setup() {
   getIt.registerSingleton<FavoritesService>(FavoritesService());
 
   getIt.registerLazySingleton<DataRepository>(
-    () => DataRepositoryImpl(getIt<ApiService>(), getIt<FavoritesService>()),
+    () => DataRepositoryImpl(
+      getIt<ApiService>(),
+      getIt<FavoritesService>(),
+      getIt<SessionStorage>(),
+    ),
   );
+
+  getIt.registerLazySingleton<SessionStorage>(() => SessionStorage());
 
   getIt.registerLazySingleton<HomeViewModel>(
     () => HomeViewModel(getIt<DataRepository>()),
