@@ -11,7 +11,7 @@ class AboutScreen extends StatelessWidget {
         child: Column(
           verticalDirection: VerticalDirection.down,
           children: [
-            Text("developer by Papashkin"),
+            Text("developed by Papashkin"),
             Text("v1.0.0"),
           ],
         ),

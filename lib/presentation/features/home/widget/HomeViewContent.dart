@@ -22,7 +22,7 @@ class HomeViewContentState extends State<HomeViewContent> {
         return BreedsListView(context, (widget.state as Content).breedList);
       case Error:
         return Center(
-          child: Text("Error occurred: ${(widget.state as Error).message}"),
+          child: Text("Error occurred:\n${(widget.state as Error).message}"),
         );
       default:
         return Center(child: Text("Unknown state"));

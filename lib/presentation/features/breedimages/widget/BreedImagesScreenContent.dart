@@ -30,7 +30,7 @@ class BreedImagesScreenContentState extends State<BreedImagesScreenContent> {
         );
       case Error:
         return Center(
-          child: Text("Error occurred: ${(widget.state as Error).message}"),
+          child: Text("Error occurred:\n${(widget.state as Error).message}"),
         );
       default:
         return Center(child: Text("Unknown state"));
