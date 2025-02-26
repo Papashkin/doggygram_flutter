@@ -1,6 +1,7 @@
 import 'package:flashcards_flutter/core/presentation/BaseViewModel.dart';
 import 'package:flashcards_flutter/data/repository/DataRepository.dart';
 import 'package:flashcards_flutter/presentation/features/favourites/FavouritesScreenUiState.dart';
+import 'package:flashcards_flutter/presentation/features/favourites/model/FilterItem.dart';
 
 import '../../breedimages/model/BreedImageItem.dart';
 
@@ -10,24 +11,69 @@ class FavouritesViewModel extends BaseViewModel {
   FavouritesViewModel(this.repository);
 
   static FavouritesScreenUiState _state = Loading();
+  static List<BreedImageItem> _favourites = [];
+  static List<FilterItem> _filters = [];
 
   void init() {
-    getFavourites();
+    getAllBreeds();
   }
 
   FavouritesScreenUiState get state => _state;
 
-  onFavouriteItemTap(BreedImageItem item) {
-    final breedImageItems = (_state as Content).items;
-    final index = breedImageItems.indexOf(item);
+  onFiltersSet(List<FilterItem> items) {
+    final newFilters =
+    _filters
+        .map((item) => FilterItem(item.name, items.contains(item)))
+        .toList();
+    _filters = newFilters;
 
-    updateFavourites(breedImageItems[index]);
-    breedImageItems[index] = BreedImageItem(
-      imageUrl: item.imageUrl,
-      isFavourite: !item.isFavourite,
-    );
-    _state = Content(breedImageItems);
+    if (items.isEmpty) {
+      _state = Content(_favourites, _filters);
+    } else {
+      final filteredNames = items.map((item) => item.name).toList();
+      _state = Content(getFilteredItems(filteredNames), _filters);
+    }
     notifyListeners();
+  }
+
+  List<BreedImageItem> getFilteredItems(List<String> filteredNames) {
+    final filteredItems =
+        _favourites.where((favourite) {
+          return filteredNames.any((name) => favourite.imageUrl.contains(name));
+        }).toList();
+    return filteredItems;
+  }
+
+  onFavouriteItemTap(BreedImageItem changedItem) {
+    final filteredItems = (_state as Content).items;
+    final index = filteredItems.indexOf(changedItem);
+
+    updateFavouritesInStorage(filteredItems[index]);
+    filteredItems[index] = BreedImageItem(
+      imageUrl: changedItem.imageUrl,
+      isFavourite: !changedItem.isFavourite,
+    );
+
+    _favourites =
+        _favourites.map((item) {
+          return (item == changedItem)
+              ? item.copyWith(null, !changedItem.isFavourite)
+              : item;
+        }).toList();
+
+    _state = Content(filteredItems, _filters);
+    notifyListeners();
+  }
+
+  Future<void> getAllBreeds() async {
+    try {
+      final data = await repository.getAllBreedsLocal();
+      _filters = data.breeds.map((breed) => FilterItem(breed, false)).toList();
+    } catch (e) {
+      _filters = [];
+    } finally {
+      getFavourites();
+    }
   }
 
   Future<void> getFavourites() async {
@@ -36,11 +82,12 @@ class FavouritesViewModel extends BaseViewModel {
         data
             .map((url) => BreedImageItem(imageUrl: url, isFavourite: true))
             .toList();
-    _state = Content(favourites);
+    _favourites = favourites;
+    _state = Content(favourites, _filters);
     notifyListeners();
   }
 
-  Future<void> updateFavourites(BreedImageItem item) async {
+  Future<void> updateFavouritesInStorage(BreedImageItem item) async {
     if (item.isFavourite) {
       repository.removeFromFavourite(item.imageUrl);
     } else {

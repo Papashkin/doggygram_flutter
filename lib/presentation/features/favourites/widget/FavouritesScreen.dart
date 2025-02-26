@@ -29,9 +29,11 @@ class FavouritesScreenState extends State<FavouritesScreen> {
         builder: (context, userViewModel, child) {
           return Scaffold(
             appBar: AppBar(title: Center(child: Text("Favourites"))),
-            body: FavouritesScreenContent(viewModel.state, (item) => {
-              viewModel.onFavouriteItemTap(item),
-            }),
+            body: FavouritesScreenContent(
+                viewModel.state,
+                  (item) => { viewModel.onFavouriteItemTap(item)},
+                  (filterItems) => { viewModel.onFiltersSet(filterItems)},
+            ),
           );
         },
       ),

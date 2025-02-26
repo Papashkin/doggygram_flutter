@@ -24,7 +24,7 @@ class HomeViewModel extends BaseViewModel {
     updateStateWithNotification(action: () => {_state = Loading()});
 
     try {
-      final response = await repository.getAllBreeds();
+      final response = await repository.getAllBreedsRemote();
       if (response.isSuccessful()) {
         onGetAllBreedsSuccessResult(response);
       } else {
