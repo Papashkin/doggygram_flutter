@@ -1,7 +1,5 @@
 import 'package:flashcards_flutter/presentation/features/breedimages/model/BreedImageItem.dart';
 
-import 'model/BreedImageItem.dart';
-
 sealed class BreedImagesUiState {}
 
 class Loading extends BreedImagesUiState {}
