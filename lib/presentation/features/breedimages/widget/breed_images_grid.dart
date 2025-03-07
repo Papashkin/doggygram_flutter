@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../model/BreedImageItem.dart';
+import '../model/breed_image_item.dart';
 
-Widget BreedImagesListView(
+Widget breedImagesGrid(
   BuildContext context,
   List<BreedImageItem> items,
   Function(BreedImageItem) onFavouriteIconTap,
@@ -16,10 +16,11 @@ Widget BreedImagesListView(
     itemCount: items.length,
     itemBuilder: (context, index) {
       return Padding(
+        key: ValueKey(items[index].imageUrl),
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
-          child: ImageViewWithFavouriteIcon(
+          child: imageViewWithFavouriteIcon(
             context,
             items[index],
             onFavouriteIconTap,
@@ -30,7 +31,7 @@ Widget BreedImagesListView(
   );
 }
 
-Widget ImageViewWithFavouriteIcon(
+Widget imageViewWithFavouriteIcon(
   BuildContext context,
   BreedImageItem item,
   Function(BreedImageItem) onFavouriteIconTap,

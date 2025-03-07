@@ -3,9 +3,9 @@ import 'package:flashcards_flutter/data/SessionStorage.dart';
 import 'package:flashcards_flutter/data/model/BreedImageApiModel.dart';
 import 'package:flashcards_flutter/data/service/FavoritesService.dart';
 
-import '../service/ApiService.dart';
 import '../model/AllBreedsApiModel.dart';
-import 'DataRepository.dart';
+import '../service/ApiService.dart';
+import 'data_repository.dart';
 
 class DataRepositoryImpl implements DataRepository {
   final ApiService apiService;
@@ -22,8 +22,8 @@ class DataRepositoryImpl implements DataRepository {
   }
 
   @override
-  AllBreedsApiModel getAllBreedsLocal() {
-    return sessionStorage.getData('all_breeds');
+  Future<AllBreedsApiModel> getAllBreedsLocal() async {
+    return await sessionStorage.getData('all_breeds');
   }
 
   @override
