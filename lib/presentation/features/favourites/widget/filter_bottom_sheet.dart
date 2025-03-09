@@ -1,17 +1,17 @@
-import 'package:flashcards_flutter/presentation/features/favourites/model/FilterItem.dart';
+import 'package:flashcards_flutter/presentation/features/favourites/model/filter_item.dart';
 import 'package:flutter/material.dart';
 
-class FilterBottomSheetView extends StatefulWidget {
+class FilterBottomSheet extends StatefulWidget {
   final List<FilterItem> items;
   final Function(List<FilterItem>) onFiltersSet;
 
-  const FilterBottomSheetView(this.items, this.onFiltersSet, {super.key});
+  const FilterBottomSheet(this.items, this.onFiltersSet, {super.key});
 
   @override
   State<StatefulWidget> createState() => FilterBottomSheetViewState();
 }
 
-class FilterBottomSheetViewState extends State<FilterBottomSheetView> {
+class FilterBottomSheetViewState extends State<FilterBottomSheet> {
   static List<FilterItem> _selectedItems = [];
 
   @override

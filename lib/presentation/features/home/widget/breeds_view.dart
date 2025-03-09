@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../model/BreedItem.dart';
 
-Widget BreedsListView(BuildContext context, List<BreedItem> data) {
+Widget breedsView(BuildContext context, List<BreedItem> data) {
   return ListView.builder(
     itemCount: data.length,
     padding: EdgeInsets.fromLTRB(0, 8, 0, 8),

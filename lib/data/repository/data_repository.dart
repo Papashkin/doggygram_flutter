@@ -4,7 +4,7 @@ import '../model/AllBreedsApiModel.dart';
 
 abstract class DataRepository {
   Future<AllBreedsApiModel> getAllBreedsRemote();
-  AllBreedsApiModel getAllBreedsLocal();
+  Future<AllBreedsApiModel> getAllBreedsLocal();
   Future<void> setAllBreedsLocal(AllBreedsApiModel allBreeds);
   Future<BreedImageApiModel> getImagesByBreed(String breedName);
   Future<void> addToFavourite(String image);

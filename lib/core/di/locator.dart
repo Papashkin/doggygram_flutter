@@ -1,16 +1,16 @@
 import 'package:dio/dio.dart';
-import 'package:flashcards_flutter/presentation/features/breedimages/viewmodel/BreedImagesViewModel.dart';
+import 'package:flashcards_flutter/presentation/features/breedimages/cubit/breed_images_cubit.dart';
+import 'package:flashcards_flutter/presentation/features/home/cubit/home_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import '../../data/SessionStorage.dart';
-import '../../data/repository/DataRepository.dart';
-import '../../data/repository/DataRepositoryImpl.dart';
+import '../../data/repository/data_repository.dart';
+import '../../data/repository/data_repository_impl.dart';
 import '../../data/service/ApiService.dart';
 import '../../data/service/FavoritesService.dart';
-import '../../presentation/features/favourites/viewmodel/FavouritesViewModel.dart';
-import '../../presentation/features/home/viewmodel/HomeViewModel.dart';
+import '../../presentation/features/favourites/cubit/favourites_cubit.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -46,16 +46,16 @@ void setup() {
 
   getIt.registerLazySingleton<SessionStorage>(() => SessionStorage());
 
-  getIt.registerLazySingleton<HomeViewModel>(
-    () => HomeViewModel(getIt<DataRepository>()),
+  getIt.registerLazySingleton<HomeCubit>(
+    () => HomeCubit(getIt<DataRepository>()),
   );
 
-  getIt.registerLazySingleton<BreedImagesViewModel>(
-    () => BreedImagesViewModel(getIt<DataRepository>()),
+  getIt.registerLazySingleton<BreedImagesCubit>(
+    () => BreedImagesCubit(getIt<DataRepository>()),
   );
 
-  getIt.registerLazySingleton<FavouritesViewModel>(
-    () => FavouritesViewModel(getIt<DataRepository>()),
+  getIt.registerLazySingleton<FavouritesCubit>(
+    () => FavouritesCubit(getIt<DataRepository>()),
   );
 }
 
