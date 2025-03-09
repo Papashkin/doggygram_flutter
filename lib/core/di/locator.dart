@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flashcards_flutter/data/service/app_version_service.dart';
 import 'package:flashcards_flutter/presentation/features/breedimages/cubit/breed_images_cubit.dart';
 import 'package:flashcards_flutter/presentation/features/home/cubit/home_cubit.dart';
 import 'package:flutter/foundation.dart';
@@ -10,6 +11,7 @@ import '../../data/repository/data_repository.dart';
 import '../../data/repository/data_repository_impl.dart';
 import '../../data/service/ApiService.dart';
 import '../../data/service/FavoritesService.dart';
+import '../../presentation/features/about/cubit/about_cubit.dart';
 import '../../presentation/features/favourites/cubit/favourites_cubit.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -36,6 +38,8 @@ void setup() {
 
   getIt.registerSingleton<FavoritesService>(FavoritesService());
 
+  getIt.registerSingleton<AppVersionService>(AppVersionService());
+
   getIt.registerLazySingleton<DataRepository>(
     () => DataRepositoryImpl(
       getIt<ApiService>(),
@@ -56,6 +60,10 @@ void setup() {
 
   getIt.registerLazySingleton<FavouritesCubit>(
     () => FavouritesCubit(getIt<DataRepository>()),
+  );
+
+  getIt.registerLazySingleton<AboutCubit>(
+    () => AboutCubit(getIt<AppVersionService>()),
   );
 }
 
