@@ -1,12 +1,12 @@
+import 'package:flashcards_flutter/core/presentation/bottom_navigation_view.dart';
+import 'package:flashcards_flutter/core/presentation/route_paths.dart';
 import 'package:flashcards_flutter/presentation/features/breedimages/widget/breed_images_screen.dart';
 import 'package:flashcards_flutter/presentation/features/favourites/widget/favourites_screen.dart';
 import 'package:flashcards_flutter/presentation/features/home/widget/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/about/widget/about_screen.dart';
-import 'BottomNavigationView.dart';
-import 'RoutePaths.dart';
+import '../../presentation/features/about/widget/about_screen.dart';
 
 final mainRouter = GoRouter(
   initialLocation: RoutePaths.Home,

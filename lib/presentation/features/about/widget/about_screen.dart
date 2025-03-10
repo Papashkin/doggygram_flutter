@@ -1,3 +1,4 @@
+import 'package:flashcards_flutter/core/presentation/constant_components.dart';
 import 'package:flashcards_flutter/presentation/features/about/about_state.dart';
 import 'package:flashcards_flutter/presentation/features/about/cubit/about_cubit.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +14,12 @@ class AboutScreen extends StatelessWidget {
     return BlocProvider(
       create: (_) => getIt.get<AboutCubit>(),
       child: Scaffold(
-        appBar: AppBar(title: Center(child: Text("DoggyGram"))),
+        appBar: AppBar(title: const Center(child: Text("DoggyGram"))),
         body: BlocBuilder<AboutCubit, AboutState>(
           builder: (context, state) {
             switch (state) {
               case Loading():
-                return Center(child: CircularProgressIndicator());
+                return loadingView;
               case Content():
                 return contentAbout(context, state.version);
             }
@@ -51,11 +52,11 @@ Widget contentAbout(BuildContext context, String? version) {
                   ),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
                 "developed by Papashkin\n2025",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
               ),
             ],
           ),
@@ -67,7 +68,7 @@ Widget contentAbout(BuildContext context, String? version) {
           child: Text(
             version ?? "",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, color: Colors.grey),
+            style: const TextStyle(fontSize: 14, color: Colors.grey),
           ),
         ),
       ],

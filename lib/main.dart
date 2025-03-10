@@ -1,4 +1,4 @@
-import 'package:flashcards_flutter/presentation/core/Router.dart';
+import 'package:flashcards_flutter/core/presentation/router.dart';
 import 'package:flutter/material.dart';
 
 import 'core/di/locator.dart';

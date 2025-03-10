@@ -1,3 +1,4 @@
+import 'package:flashcards_flutter/core/presentation/constant_components.dart';
 import 'package:flashcards_flutter/presentation/features/breedimages/cubit/breed_images_cubit.dart';
 import 'package:flashcards_flutter/presentation/features/breedimages/widget/breed_images_grid.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class _BreedImagesScreenState extends State<BreedImagesScreen> {
           builder: (context, state) {
             switch (state) {
               case Loading():
-                return Center(child: CircularProgressIndicator());
+                return loadingView;
               case Content():
                 return breedImagesGrid(
                   context,
