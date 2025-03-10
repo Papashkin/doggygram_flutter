@@ -10,13 +10,13 @@ class ErrorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 48),
+      padding: const EdgeInsets.symmetric(horizontal: 48),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.warning_rounded, size: 48),
-            SizedBox(height: 10),
+            const Icon(Icons.warning_rounded, size: 48),
+            const SizedBox(height: 10),
             Text(
               type.toMessage(),
               textAlign: TextAlign.center,

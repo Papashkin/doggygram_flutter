@@ -24,7 +24,7 @@ class FavouritesScreenContent extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
           child:
               filters.isEmpty
                   ? null

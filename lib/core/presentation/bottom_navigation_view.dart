@@ -1,7 +1,7 @@
+import 'package:flashcards_flutter/core/presentation/route_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'RoutePaths.dart';
 
 class BottomNavigationView extends StatelessWidget {
   final Widget child;

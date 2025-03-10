@@ -1,3 +1,4 @@
+import 'package:flashcards_flutter/core/presentation/constant_components.dart';
 import 'package:flashcards_flutter/presentation/features/favourites/cubit/favourites_cubit.dart';
 import 'package:flashcards_flutter/presentation/features/favourites/favourites_state.dart';
 import 'package:flashcards_flutter/presentation/features/favourites/widget/favourites_screen_content.dart';
@@ -26,14 +27,14 @@ class _FavouriteScreenState extends State<FavouritesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text("favourites"))),
+      appBar: AppBar(title: const Center(child: Text("favourites"))),
       body: Center(
         child: BlocBuilder<FavouritesCubit, FavouritesState>(
           bloc: _cubit,
           builder: (context, state) {
             switch (state) {
               case Loading():
-                return Center(child: CircularProgressIndicator());
+                return loadingView;
               case Content():
                 return FavouritesScreenContent(
                   state.items,
