@@ -1,4 +1,3 @@
-
 class BreedImageItem {
   final String imageUrl;
   final bool isFavourite;
@@ -8,7 +7,7 @@ class BreedImageItem {
   BreedImageItem copyWith(String? imageUrl, bool? isFavourite) {
     return BreedImageItem(
       imageUrl: imageUrl ?? this.imageUrl,
-      isFavourite: isFavourite ?? this.isFavourite
+      isFavourite: isFavourite ?? this.isFavourite,
     );
   }
 

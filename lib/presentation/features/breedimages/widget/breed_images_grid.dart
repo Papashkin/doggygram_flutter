@@ -1,5 +1,6 @@
-import 'package:flashcards_flutter/core/presentation/constant_components.dart';
+import 'package:flashcards_flutter/core/presentation/image_with_favourite_icon.dart';
 import 'package:flutter/material.dart';
+
 import '../model/breed_image_item.dart';
 
 Widget breedImagesGrid(
@@ -8,7 +9,7 @@ Widget breedImagesGrid(
   Function(BreedImageItem) onFavouriteIconTap,
 ) {
   return GridView.builder(
-    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 2,
       crossAxisSpacing: 4,
       mainAxisSpacing: 4,
@@ -32,51 +33,3 @@ Widget breedImagesGrid(
   );
 }
 
-Widget imageViewWithFavouriteIcon(
-  BuildContext context,
-  BreedImageItem item,
-  Function(BreedImageItem) onFavouriteIconTap,
-) {
-  return InkWell(
-    onTap: () => {onFavouriteIconTap(item)},
-    child: Stack(
-      fit: StackFit.passthrough,
-      children: [
-        Image.network(
-          item.imageUrl,
-          fit: BoxFit.cover,
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) {
-              return child;
-            } else {
-              return Container(
-                color: Colors.grey[100],
-                child: loadingView,
-              );
-            }
-          },
-          errorBuilder:
-              (context, error, stackTrace) =>
-                  Icon(Icons.error, size: 50, color: Colors.red[300]),
-        ),
-        Positioned(
-          top: 4,
-          right: 4,
-          child: Container(
-            width: 32,
-            height: 32,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              item.isFavourite ? Icons.favorite : Icons.favorite_outline,
-              color: item.isFavourite ? Colors.red : Colors.grey,
-              size: 20,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}

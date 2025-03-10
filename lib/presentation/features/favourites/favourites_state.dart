@@ -12,7 +12,7 @@ class Loading extends FavouritesState {
 }
 
 class Content extends FavouritesState {
-  final List<BreedImageItem> items;
+  final Map<String, List<BreedImageItem>> items;
   final List<FilterItem> filters;
 
   Content(this.items, this.filters);

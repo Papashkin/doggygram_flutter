@@ -56,7 +56,10 @@ Widget contentAbout(BuildContext context, String? version) {
               Text(
                 "developed by Papashkin\n2025",
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
               ),
             ],
           ),

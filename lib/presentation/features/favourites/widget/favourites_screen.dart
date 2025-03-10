@@ -36,10 +36,11 @@ class _FavouriteScreenState extends State<FavouritesScreen> {
               case Loading():
                 return loadingView;
               case Content():
-                return FavouritesScreenContent(
+                return favouritesScreenContent(
+                  context,
                   state.items,
                   state.filters,
-                  (item) => _cubit.onFavouriteItemTap(item),
+                  (breed, item) => _cubit.onFavouriteItemTap(breed, item),
                   (filterItems) => _cubit.onFiltersSet(filterItems),
                 );
               case Error():
@@ -51,4 +52,3 @@ class _FavouriteScreenState extends State<FavouritesScreen> {
     );
   }
 }
-
