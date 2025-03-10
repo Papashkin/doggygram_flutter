@@ -36,7 +36,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   padding: const EdgeInsets.all(16),
                   child: ListView.builder(
                     itemCount: items.length,
-                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                    padding: const EdgeInsets.only(top: 8, bottom: 8),
                     itemBuilder: (context, index) {
                       final item = items[index];
                       return CheckboxListTile(
@@ -49,7 +49,6 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                           });
                         },
                         contentPadding: const EdgeInsets.symmetric(
-                          vertical: 0,
                           horizontal: 8,
                         ),
                         title: Text(item.name),

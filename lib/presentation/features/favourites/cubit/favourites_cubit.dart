@@ -10,56 +10,67 @@ class FavouritesCubit extends Cubit<FavouritesState> {
 
   FavouritesCubit(this.repository) : super(Loading());
 
-  static List<BreedImageItem> _favourites = [];
   static List<FilterItem> _filters = [];
+  static final Map<String, List<BreedImageItem>> _favouritesWithHeaders = {};
 
   void init() {
     emit(Loading());
     getAllBreeds();
   }
 
-  onFiltersSet(List<FilterItem> items) {
+  void onFiltersSet(List<FilterItem> items) {
     _filters = updateFilters(items);
 
     if (items.isEmpty) {
-      emit(Content(_favourites, _filters));
+      emit(Content(_favouritesWithHeaders, _filters));
     } else {
       final filteredNames = items.map((item) => item.name).toList();
       emit(Content(getFilteredItems(filteredNames), _filters));
     }
   }
 
-  List<BreedImageItem> getFilteredItems(List<String> filteredNames) {
-    final filteredItems =
-        _favourites.where((favourite) {
-          return filteredNames.any((name) => favourite.imageUrl.contains(name));
-        }).toList();
-    return filteredItems;
-  }
-
-  onFavouriteItemTap(BreedImageItem changedItem) {
+  void onFavouriteItemTap(String breed, BreedImageItem changedItem) {
     if (state is! Content) return;
-    final updatedItems =
-        (state as Content).items.map((item) {
+
+    /** TODO THIS ONE WORKS 100%!
+        final newItems = (state as Content).items.map((key, value) {
+        if (key == breed) {
+        var newEntry = value.map((entry) {
+        if (entry.imageUrl == changedItem.imageUrl) {
+        updateFavouritesInStorage(changedItem);
+        return entry.copyWith(null, !entry.isFavourite);
+        } else {
+        return entry;
+        };
+        }).toList();
+        return MapEntry(key, newEntry);
+        } else {
+        return MapEntry(key, value);
+        }
+        });
+        emit(Content(newItems, _filters));
+     */
+
+    // /** ======= ANOTHER OPTION THAT WORKS =======
+    final filteredItemsWithHeaders = (state as Content).items;
+    final itemsByBreed = filteredItemsWithHeaders[breed];
+    if (itemsByBreed == null) return;
+
+    emit(Loading());
+    final newItems =
+        itemsByBreed.map((item) {
           if (item.imageUrl == changedItem.imageUrl) {
             updateFavouritesInStorage(changedItem);
-            final updatedItem = BreedImageItem(
-              imageUrl: changedItem.imageUrl,
-              isFavourite: !changedItem.isFavourite,
-            );
-            return updatedItem;
+            return item.copyWith(null, !item.isFavourite);
+          } else {
+            return item;
           }
-          return item;
         }).toList();
 
-    _favourites =
-        _favourites.map((item) {
-          return (item == changedItem)
-              ? item.copyWith(null, !changedItem.isFavourite)
-              : item;
-        }).toList();
+    filteredItemsWithHeaders[breed] = newItems;
 
-    emit(Content(updatedItems, _filters));
+    emit(Content(filteredItemsWithHeaders, _filters));
+    // */
   }
 
   Future<void> getAllBreeds() async {
@@ -79,8 +90,13 @@ class FavouritesCubit extends Cubit<FavouritesState> {
         data
             .map((url) => BreedImageItem(imageUrl: url, isFavourite: true))
             .toList();
-    _favourites = favourites;
-    emit(Content(favourites, _filters));
+    final breedNames = _filters.map((item) => item.name).toList();
+    for (var key in breedNames) {
+      _favouritesWithHeaders[key] =
+          favourites.where((item) => item.imageUrl.contains(key)).toList();
+    }
+    _favouritesWithHeaders.removeWhere((key, value) => value.isEmpty);
+    emit(Content(_favouritesWithHeaders, _filters));
   }
 
   Future<void> updateFavouritesInStorage(BreedImageItem item) async {
@@ -91,7 +107,7 @@ class FavouritesCubit extends Cubit<FavouritesState> {
     }
   }
 
-  List<FilterItem> updateFilters(List<FilterItem> items) {
+  static List<FilterItem> updateFilters(List<FilterItem> items) {
     final newFilters =
         _filters
             .map((item) => FilterItem(item.name, items.contains(item)))
@@ -102,5 +118,16 @@ class FavouritesCubit extends Cubit<FavouritesState> {
       return a.name.compareTo(b.name);
     });
     return newFilters;
+  }
+
+  static Map<String, List<BreedImageItem>> getFilteredItems(
+    List<String> filteredNames,
+  ) {
+    final filteredFavouritesWithHeaders = Map.fromEntries(
+      _favouritesWithHeaders.entries.where(
+        (favourites) => filteredNames.contains(favourites.key),
+      ),
+    );
+    return filteredFavouritesWithHeaders;
   }
 }

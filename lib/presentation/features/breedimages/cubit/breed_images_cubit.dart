@@ -22,20 +22,14 @@ class BreedImagesCubit extends Cubit<BreedImagesState> {
   void onFavouriteIconTap(BreedImageItem clickedItem) {
     if (state is! Content) return;
     final breedImageItems = (state as Content).breedImages;
-    // final index = breedImageItems.indexOf(clickedItem);
     final updatedItems =
         breedImageItems.map((item) {
           if (item.imageUrl == clickedItem.imageUrl) {
             updateFavourites(clickedItem);
-            final updatedItem = BreedImageItem(
-              imageUrl: clickedItem.imageUrl,
-              isFavourite: !clickedItem.isFavourite,
-            );
-            return updatedItem;
+            return item.copyWith(null, !clickedItem.isFavourite);
           }
           return item;
         }).toList();
-    // updateFavourites(updatedItems[index]);
     emit(Content(updatedItems));
   }
 
