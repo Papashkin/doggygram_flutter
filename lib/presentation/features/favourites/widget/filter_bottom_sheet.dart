@@ -8,10 +8,10 @@ class FilterBottomSheet extends StatefulWidget {
   const FilterBottomSheet(this.items, this.onFiltersSet, {super.key});
 
   @override
-  State<StatefulWidget> createState() => FilterBottomSheetViewState();
+  State<StatefulWidget> createState() => _FilterBottomSheetState();
 }
 
-class FilterBottomSheetViewState extends State<FilterBottomSheet> {
+class _FilterBottomSheetState extends State<FilterBottomSheet> {
   static List<FilterItem> _selectedItems = [];
 
   @override
@@ -21,7 +21,7 @@ class FilterBottomSheetViewState extends State<FilterBottomSheet> {
         final result = await _openBottomSheet(widget.items);
         widget.onFiltersSet(result ?? List.empty());
       },
-      child: Text("Filter"),
+      child: Text("Filter breeds"),
     );
   }
 

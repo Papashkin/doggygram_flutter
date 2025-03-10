@@ -19,11 +19,7 @@ class FavouritesCubit extends Cubit<FavouritesState> {
   }
 
   onFiltersSet(List<FilterItem> items) {
-    final newFilters =
-        _filters
-            .map((item) => FilterItem(item.name, items.contains(item)))
-            .toList();
-    _filters = newFilters;
+    _filters = updateFilters(items);
 
     if (items.isEmpty) {
       emit(Content(_favourites, _filters));
@@ -93,5 +89,18 @@ class FavouritesCubit extends Cubit<FavouritesState> {
     } else {
       await repository.addToFavourite(item.imageUrl);
     }
+  }
+
+  List<FilterItem> updateFilters(List<FilterItem> items) {
+    final newFilters =
+        _filters
+            .map((item) => FilterItem(item.name, items.contains(item)))
+            .toList();
+    newFilters.sort((a, b) {
+      int selectedComparison = (b.isSelected ? 1 : 0) - (a.isSelected ? 1 : 0);
+      if (selectedComparison != 0) return selectedComparison;
+      return a.name.compareTo(b.name);
+    });
+    return newFilters;
   }
 }
