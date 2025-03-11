@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flashcards_flutter/data/repository/data_repository.dart';
 import 'package:flashcards_flutter/presentation/features/favourites/favourites_state.dart';
 import 'package:flashcards_flutter/presentation/features/favourites/model/filter_item.dart';
@@ -11,7 +13,8 @@ class FavouritesCubit extends Cubit<FavouritesState> {
   FavouritesCubit(this.repository) : super(Loading());
 
   static List<FilterItem> _filters = [];
-  static final Map<String, List<BreedImageItem>> _favouritesWithHeaders = {};
+  static final SplayTreeMap<String, List<BreedImageItem>>
+  _favouritesWithHeaders = SplayTreeMap();
 
   void init() {
     emit(Loading());
