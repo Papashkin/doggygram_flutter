@@ -32,7 +32,7 @@ class FavouritesCubit extends Cubit<FavouritesState> {
   void onFavouriteItemTap(String breed, BreedImageItem changedItem) {
     if (state is! Content) return;
 
-    /** TODO THIS ONE WORKS 100%!
+    /** ======= THIS ONE WORKS 100%! =======
         final newItems = (state as Content).items.map((key, value) {
         if (key == breed) {
         var newEntry = value.map((entry) {
@@ -68,7 +68,7 @@ class FavouritesCubit extends Cubit<FavouritesState> {
         }).toList();
 
     filteredItemsWithHeaders[breed] = newItems;
-
+    _favouritesWithHeaders[breed] = newItems;
     emit(Content(filteredItemsWithHeaders, _filters));
     // */
   }
