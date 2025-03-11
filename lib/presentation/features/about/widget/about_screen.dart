@@ -5,23 +5,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/di/locator.dart';
+import '../../../../core/localization/generated/l10n.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
+
+  static final _l10n = getIt<I10n>();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt.get<AboutCubit>(),
       child: Scaffold(
-        appBar: AppBar(title: const Center(child: Text("DoggyGram"))),
+        appBar: AppBar(title: Center(child: Text(_l10n.app_name))),
         body: BlocBuilder<AboutCubit, AboutState>(
           builder: (context, state) {
             switch (state) {
               case Loading():
                 return loadingView;
               case Content():
-                return contentAbout(context, state.version);
+                return contentAbout(
+                  context,
+                  _l10n.about_description,
+                  state.version,
+                );
             }
           },
         ),
@@ -30,7 +37,7 @@ class AboutScreen extends StatelessWidget {
   }
 }
 
-Widget contentAbout(BuildContext context, String? version) {
+Widget contentAbout(BuildContext context, String description, String? version) {
   return Scaffold(
     body: Stack(
       children: [
@@ -54,7 +61,7 @@ Widget contentAbout(BuildContext context, String? version) {
               ),
               const SizedBox(height: 16),
               Text(
-                "developed by Papashkin\n2025",
+                description,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 14,

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/di/locator.dart';
+import '../../../../core/localization/generated/l10n.dart';
 import '../../../../core/presentation/error_view.dart';
 
 class FavouritesScreen extends StatefulWidget {
@@ -17,6 +18,7 @@ class FavouritesScreen extends StatefulWidget {
 
 class _FavouriteScreenState extends State<FavouritesScreen> {
   final FavouritesCubit _cubit = getIt.get<FavouritesCubit>();
+  static final _l10n = getIt<I10n>();
 
   @override
   void initState() {
@@ -27,7 +29,7 @@ class _FavouriteScreenState extends State<FavouritesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Center(child: Text("favourites"))),
+      appBar: AppBar(title: Center(child: Text(_l10n.favourites_title))),
       body: Center(
         child: BlocBuilder<FavouritesCubit, FavouritesState>(
           bloc: _cubit,
@@ -44,7 +46,7 @@ class _FavouriteScreenState extends State<FavouritesScreen> {
                   (filterItems) => _cubit.onFiltersSet(filterItems),
                 );
               case Error():
-                return ErrorView(state.type);
+                return ErrorView(state.type.toMessage());
             }
           },
         ),

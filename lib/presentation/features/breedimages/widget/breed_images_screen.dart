@@ -1,3 +1,4 @@
+import 'package:flashcards_flutter/core/localization/generated/l10n.dart';
 import 'package:flashcards_flutter/core/presentation/constant_components.dart';
 import 'package:flashcards_flutter/presentation/features/breedimages/cubit/breed_images_cubit.dart';
 import 'package:flashcards_flutter/presentation/features/breedimages/widget/breed_images_grid.dart';
@@ -19,6 +20,7 @@ class BreedImagesScreen extends StatefulWidget {
 
 class _BreedImagesScreenState extends State<BreedImagesScreen> {
   final BreedImagesCubit _cubit = getIt.get<BreedImagesCubit>();
+  static final _l10n = getIt<I10n>();
 
   @override
   void initState() {
@@ -30,7 +32,9 @@ class _BreedImagesScreenState extends State<BreedImagesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("Images of ${widget.breedName}")),
+        title: Center(
+          child: Text(widget.breedName ?? _l10n.breed_images_unknown_title),
+        ),
       ),
       body: Center(
         child: BlocBuilder<BreedImagesCubit, BreedImagesState>(
@@ -46,7 +50,7 @@ class _BreedImagesScreenState extends State<BreedImagesScreen> {
                   (item) => {_cubit.onFavouriteIconTap(item)},
                 );
               case Error():
-                return ErrorView(state.type);
+                return ErrorView(state.type.toMessage());
             }
           },
         ),

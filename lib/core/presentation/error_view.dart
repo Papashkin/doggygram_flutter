@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'error_type.dart';
-
 class ErrorView extends StatelessWidget {
-  final ErrorType type;
+  final String message;
 
-  const ErrorView(this.type, {super.key});
+  const ErrorView(this.message, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +16,7 @@ class ErrorView extends StatelessWidget {
             const Icon(Icons.warning_rounded, size: 48),
             const SizedBox(height: 10),
             Text(
-              type.toMessage(),
+              message,
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

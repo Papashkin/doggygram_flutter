@@ -1,0 +1,9 @@
+{
+    "@@locale": "en",
+    "app_name": "DoggyGram",
+    "home_title": "List of breeds",
+    "favourites_title": "favourites",
+    "favourites_filter_title": "Filter breeds",
+    "breed_images_unknown_title": "unknown",
+    "about_description": "developed by Papashkin\n2025"
+}

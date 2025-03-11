@@ -1,5 +1,8 @@
+import 'package:flashcards_flutter/core/di/locator.dart';
 import 'package:flashcards_flutter/presentation/features/favourites/model/filter_item.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../core/localization/generated/l10n.dart';
 
 class FilterBottomSheet extends StatefulWidget {
   final List<FilterItem> items;
@@ -13,6 +16,7 @@ class FilterBottomSheet extends StatefulWidget {
 
 class _FilterBottomSheetState extends State<FilterBottomSheet> {
   static List<FilterItem> _selectedItems = [];
+  static final _l10n = getIt<I10n>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
         final result = await _openBottomSheet(widget.items);
         widget.onFiltersSet(result ?? List.empty());
       },
-      child: const Text("Filter breeds"),
+      child: Text(_l10n.favourites_filter_title),
     );
   }
 
