@@ -1,3 +1,4 @@
+import 'package:flashcards_flutter/core/presentation/error_view.dart';
 import 'package:flashcards_flutter/presentation/features/favourites/model/filter_item.dart';
 import 'package:flashcards_flutter/presentation/features/favourites/widget/breed_image_grid_with_headers.dart';
 import 'package:flashcards_flutter/presentation/features/favourites/widget/filter_bottom_sheet.dart';
@@ -28,11 +29,14 @@ Widget favouritesScreenContent(
                 ),
       ),
       Expanded(
-        child: breedImagesGridWithHeaders(
-          context,
-          items,
-          (breed, item) => {onFavouriteIconTap(breed, item)},
-        ),
+        child:
+            items.isEmpty
+                ? Center(child: ErrorView("There is no items"))
+                : breedImagesGridWithHeaders(
+                  context,
+                  items,
+                  (breed, item) => {onFavouriteIconTap(breed, item)},
+                ),
       ),
     ],
   );

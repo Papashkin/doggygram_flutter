@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flashcards_flutter/core/localization/generated/l10n.dart';
 import 'package:flashcards_flutter/data/service/app_version_service.dart';
 import 'package:flashcards_flutter/presentation/features/breedimages/cubit/breed_images_cubit.dart';
 import 'package:flashcards_flutter/presentation/features/home/cubit/home_cubit.dart';
@@ -18,6 +19,8 @@ final GetIt getIt = GetIt.instance;
 
 void setup() {
   setupHive();
+
+  getIt.registerLazySingleton(() => I10n());
 
   getIt.registerLazySingleton<Dio>(() {
     final Dio dio = Dio();
