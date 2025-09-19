@@ -1,6 +1,6 @@
-# flashcards_flutter
+# DoggyGram_flutter
 
-Flashcards cross-platform app
+cross-platform app for dog images
 
 ## Getting Started
 
